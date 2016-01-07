@@ -74,6 +74,12 @@ struct WebServiceManager{
                     newContact.lastName = fullNameArray[1]
                 }
             }
+            //Save the id as a string instead of a number so we are free
+            //to use UUIDs as id's to ensure uniqueness when we create new
+            //contacts
+            if let contactId = jsonDict["id"] as? NSNumber {
+                newContact.contactId = String(contactId)
+            }
             
             DataManager.sharedManager.save()
             return newContact

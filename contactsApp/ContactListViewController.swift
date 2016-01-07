@@ -99,6 +99,10 @@ UITableViewDataSource, UITableViewDelegate, NewContactDelegate{
             }
     }
     
+    func didUpdateContact(contact: Contact) {
+        //Intentionally Blank
+    }
+    
     func didCreateNewContact(newContact: Contact) {
                     self.contacts?.append(newContact)
                     

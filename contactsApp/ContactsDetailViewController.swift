@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ContactsDetailViewController: UIViewController {
+class ContactsDetailViewController: UIViewController, NewContactDelegate {
     var selectedContact : Contact!
     
     @IBOutlet weak var firstName: UILabel!
@@ -25,6 +25,34 @@ class ContactsDetailViewController: UIViewController {
     
     @IBOutlet weak var zipCode: UILabel!
     
+    func didUpdateContact(contact: Contact) {
+        self.selectedContact = contact
+        self.updateTextFields()
+    }
+    
+    func didCreateNewContact(newContact: Contact) {
+            //Intentionally left blank
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "EditContactSegue" {
+        if let vc = segue.destinationViewController as?
+        NewContactViewController {
+        vc.delegate = self
+        vc.editContactId = self.selectedContact.contactId
+        }
+        }
+    }
+    
+    func updateTextFields() {
+        self.firstName.text = self.selectedContact?.firstName
+        self.lastName.text = self.selectedContact?.lastName
+        self.phoneNumber.text = self.selectedContact?.phoneNumber
+        self.streetAddress.text = self.selectedContact?.address?.street
+        self.city.text = self.selectedContact?.address?.city
+        self.state.text = self.selectedContact?.address?.state
+        self.zipCode.text = self.selectedContact?.address?.zipCode
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
